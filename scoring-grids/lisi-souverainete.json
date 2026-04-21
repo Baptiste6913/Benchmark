@@ -1,0 +1,106 @@
+{
+  "name": "lisi-souverainete",
+  "version": "1.0",
+  "description": "Grille souveraineté IA pour industriels européens — évalue des acteurs industriels, financiers et tech qui construisent ou remédient leur stack IA pour s'émanciper des hyperscalers US. Transférable à tout industriel sous-traitant défense/aéronautique exposé aux exigences des donneurs d'ordre et au risque de captation de données par les hyperscalers.",
+  "sector": "industrie-souverainete-ia",
+  "date_last_updated": "2026-04-17",
+  "criteria": [
+    {
+      "id": "maturite_demarche",
+      "name": "Maturite de la demarche souverainete",
+      "label_fr": "Maturité de la démarche de souveraineté",
+      "weight": 0.2,
+      "description": "De la declaration d'intention (communique, roadmap) au deploiement operationnel en production avec utilisateurs reels. On penalise le 'souverain-washing' (annonces sans livrables).",
+      "scale": [
+        { "value": 1, "label": "Declaration d'intention seule, pas de plan public detaille", "requires": "Communique / interview" },
+        { "value": 2, "label": "Roadmap publique + budget engage mais aucun livrable operationnel", "requires": "Annonce chiffree" },
+        { "value": 3, "label": "Premiers POC / MVP internes livres, utilisateurs pilotes", "requires": "Cas d'usage documente" },
+        { "value": 4, "label": "Plateforme en production sur un perimetre significatif (> 1 BU ou > 1000 utilisateurs)", "requires": "Perimetre chiffre" },
+        { "value": 5, "label": "Deploiement groupe-wide operationnel, commercialise ou utilise par entites tierces", "requires": "Chiffres de traction confirmes par source tierce" }
+      ]
+    },
+    {
+      "id": "independance_stack",
+      "name": "Independance stack technique (infra / modeles / donnees)",
+      "label_fr": "Indépendance du stack (infra / modèles / données)",
+      "weight": 0.25,
+      "description": "Analyse des 3 couches critiques : hebergement (cloud), modeles (LLM / IA), donnees. A quel point l'acteur est sorti des hyperscalers US ? On score la realite operationnelle, pas le discours. Cloud Act, CLOUD Act, Patriot Act, FISA-702 : une filiale europeenne d'un groupe US reste soumise.",
+      "scale": [
+        { "value": 1, "label": "100% hyperscalers US sur les 3 couches", "requires": "Audit public ou declaration" },
+        { "value": 2, "label": "Hybride avec annonce de reduction US mais pas d'alternative deployee", "requires": "Analyse 3 couches" },
+        { "value": 3, "label": "1 couche sur 3 hors hyperscalers US (ex : cloud souverain mais modeles OpenAI/Anthropic)", "requires": "Analyse 3 couches" },
+        { "value": 4, "label": "2 couches sur 3 independantes (ex : cloud souverain + modeles EU Mistral/Llama self-hosted) — 3e tolere", "requires": "Documentation tech publique" },
+        { "value": 5, "label": "3 couches independantes des hyperscalers US : cloud souverain qualifie + modeles UE / self-hosted + donnees chez tiers UE", "requires": "Preuves sur les 3 couches + contrats" }
+      ]
+    },
+    {
+      "id": "ampleur_investissement",
+      "name": "Ampleur de l'investissement",
+      "label_fr": "Ampleur de l'investissement",
+      "weight": 0.15,
+      "description": "CAPEX engage, taille d'equipe dediee, ambition affichee vs taille du groupe. On corrige par la taille du groupe (un investissement de 100M € ne pese pas pareil pour un groupe de 10 Mds € vs 50 Mds €).",
+      "scale": [
+        { "value": 1, "label": "< 10 M€ ou equipe < 20 ETP, peu structurant", "requires": "Communique ou analyste" },
+        { "value": 2, "label": "10-50 M€ ou 20-100 ETP, initiative BU", "requires": "Source financiere" },
+        { "value": 3, "label": "50-200 M€ ou 100-500 ETP, programme groupe pluriannuel", "requires": "Rapport annuel / URD" },
+        { "value": 4, "label": "200 M€-1 Md€ ou > 500 ETP, filiale dediee ou BU majeure", "requires": "Comptes consolides" },
+        { "value": 5, "label": "> 1 Md€ engage ou entite stand-alone a gouvernance propre (ex : filiale cloud dediee)", "requires": "CAPEX publie + org chart" }
+      ]
+    },
+    {
+      "id": "pertinence_lisi",
+      "name": "Pertinence pour un industriel sous-traitant defense/aero",
+      "label_fr": "Pertinence pour un industriel sous-traitant défense/aéro",
+      "weight": 0.15,
+      "description": "Transferabilite a LISI Group : secteur proche, contraintes proches, echelle proche, modele de gouvernance transferable. Un industriel aero/defense aux prises avec les memes donneurs d'ordre est max ; une banque qui fait de l'asset management scoring IA a peu de transferabilite directe sauf sur la gouvernance.",
+      "scale": [
+        { "value": 1, "label": "Secteur tres eloigne + contraintes tres differentes", "requires": "Analyse sectorielle" },
+        { "value": 2, "label": "Secteur eloigne mais quelques briques reutilisables (gouvernance data, choix cloud)", "requires": "Analyse briques" },
+        { "value": 3, "label": "Secteur proche (industrie lourde, grande conso) ou donneur d'ordre commun avec LISI", "requires": "Lien sectoriel" },
+        { "value": 4, "label": "Industriel sous contrainte souverainete + echelle comparable ou superieure", "requires": "Contraintes comparables" },
+        { "value": 5, "label": "Donneur d'ordre direct de LISI (Airbus, Safran, Thales) ou industriel defense/aero de rang proche", "requires": "Lien chaine valeur" }
+      ]
+    },
+    {
+      "id": "approche_by_design_vs_remediation",
+      "name": "Approche 'by design' vs 'remediation legacy'",
+      "label_fr": "Approche « by design » vs « remédiation legacy »",
+      "weight": 0.1,
+      "description": "Construisent-ils du neuf souverain nativement (plateforme IA dediee, nouveaux contrats cloud souverain, modeles self-hosted) ou remedient-ils l'existant (SSO + DLP sur Microsoft 365, filtrage prompts Copilot, cloisonnement acces) ? Les deux sont valides mais portent des messages differents pour LISI. Score eleve = by design. On code au 1 ou 5 selon la dominante, 3 = mix equilibre.",
+      "scale": [
+        { "value": 1, "label": "100% remediation : SSO/DLP/contrats renforces sur stack US existant", "requires": "Analyse tech" },
+        { "value": 2, "label": "Remediation dominante + quelques briques souveraines isolees", "requires": "Analyse tech" },
+        { "value": 3, "label": "Mix equilibre : couches critiques refaites by design, reste en remediation", "requires": "Analyse tech" },
+        { "value": 4, "label": "By design dominant : nouveaux contrats / nouvelle plateforme + remediation residuelle", "requires": "Architecture publique" },
+        { "value": 5, "label": "100% by design : plateforme souveraine construite ex-nihilo, decouplee du legacy", "requires": "Architecture publique" }
+      ]
+    },
+    {
+      "id": "traction_resultats",
+      "name": "Traction / resultats demontres",
+      "label_fr": "Traction et résultats démontrés",
+      "weight": 0.15,
+      "description": "Au-dela du discours, y a-t-il du concret livre ? REX publics, clients externes, usages quantifies, chiffres d'adoption interne, contrats signes, cas d'usage documentes par presse tierce (pas uniquement corporate).",
+      "scale": [
+        { "value": 1, "label": "Rien de concret publie, uniquement du storytelling", "requires": "Check presse" },
+        { "value": 2, "label": "1-2 cas d'usage vagues, pas de metrique", "requires": "Communique" },
+        { "value": 3, "label": "Plusieurs cas d'usage cites avec quelques metriques (adoption interne, gains)", "requires": "URD / communication investisseurs" },
+        { "value": 4, "label": "Usages structurants publies avec metriques verifiables + presse tierce", "requires": "2 sources primaires + 1 presse" },
+        { "value": 5, "label": "Deploiement a grande echelle + clients externes + chiffres audites + reconnaissance analystes/presse tierce recurrente", "requires": "Triangulation 3+ sources" }
+      ]
+    }
+  ],
+  "weight_total_check": 1.0,
+  "tie_breakers": [
+    { "priority": 1, "criterion": "independance_stack" },
+    { "priority": 2, "criterion": "maturite_demarche" },
+    { "priority": 3, "criterion": "pertinence_lisi" }
+  ],
+  "usage_notes": [
+    "Grille calibree pour un COMEX industriel : on veut distinguer les acteurs qui ont construit quelque chose de ceux qui annoncent.",
+    "Le critere 'independance_stack' (25%) est dominant car c'est le nerf du sujet LISI (peur de Google).",
+    "Le critere 'approche by design vs remediation' (10%) ne disqualifie pas la remediation : certains acteurs matures ont rationnellement choisi cette voie. Il sert a illustrer les deux voies devant le COMEX.",
+    "La pertinence LISI (15%) penalise mecaniquement les acteurs tres eloignes (banque, retail) mais n'est pas bloquante : un modele transferable sur la gouvernance reste utile.",
+    "Les notes doivent etre justifiees par au moins 2 sources independantes pour tout chiffre > 100 M€, toute annonce de deploiement, tout effectif > 100 ETP. Sinon le critic rejette."
+  ]
+}

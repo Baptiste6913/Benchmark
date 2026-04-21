@@ -1,0 +1,178 @@
+{
+  "name": "public-sector-fr",
+  "version": "1.0",
+  "description": "Grille pour clients du secteur public français (État, collectivités, établissements publics, opérateurs publics). Conforme à la doctrine 'Cloud au centre' et au référentiel RGS / RGAA. Souveraineté et référencement UGAP / CCAG sont des critères distincts pour refléter le poids réel de l'achat public.",
+  "sector": "secteur-public-fr",
+  "date_last_updated": "2026-04-16",
+  "criteria": [
+    {
+      "id": "maturite",
+      "name": "Maturité de la solution",
+      "weight": 0.15,
+      "freshness_days": 365,
+      "description": "Ancienneté et base clients. Le secteur public privilégie les solutions éprouvées.",
+      "scale": [
+        { "value": 1, "label": "< 20 clients, < 3 ans", "requires": "Année + nb clients" },
+        { "value": 2, "label": "20-50 clients, 3-5 ans", "requires": "Idem" },
+        { "value": 3, "label": "50-150 clients, 5-8 ans", "requires": "Idem + REX publics" },
+        { "value": 4, "label": "150-500 clients, 8-12 ans", "requires": "Idem + analyste cité" },
+        { "value": 5, "label": "> 500 clients, > 12 ans, leader historique", "requires": "Position leader" }
+      ]
+    },
+    {
+      "id": "references_secteur_public",
+      "name": "Références secteur public",
+      "weight": 0.15,
+      "freshness_days": 365,
+      "description": "Références spécifiquement dans le secteur public français (ministères, collectivités, établissements publics, opérateurs).",
+      "scale": [
+        { "value": 1, "label": "Aucune référence secteur public FR", "requires": "Page clients" },
+        { "value": 2, "label": "1-3 références publiques, taille modeste (petites communes, EPA)", "requires": "Noms" },
+        { "value": 3, "label": "3-10 références publiques, dont 1-2 moyennes/grandes collectivités ou EPA", "requires": "Noms + taille" },
+        { "value": 4, "label": "> 10 références publiques dont 1-2 ministères OU métropoles OU grands opérateurs publics", "requires": "Liste officielle" },
+        { "value": 5, "label": "Références État multi-ministères + grandes collectivités + grands opérateurs publics (SNCF, La Poste, CNAV, etc.)", "requires": "Références publiques vérifiables" }
+      ],
+      "sourcing_hints": [
+        "BOAMP / journal-officiel.gouv.fr — recherche par nom vendeur dans les avis d'attribution récents.",
+        "Page clients / case studies du site vendeur — REX nominatifs préférés à logo wall.",
+        "Communiqués de presse client (CNIL, ministères, collectivités) — annonces d'attribution de marché.",
+        "UGAP — liste des fournisseurs référencés actuels (cf. critère referencement_ugap_ccag, recoupement)."
+      ]
+    },
+    {
+      "id": "conformite_rgs_secnumcloud",
+      "name": "Conformité RGS et qualification SecNumCloud",
+      "weight": 0.2,
+      "freshness_days": 90,
+      "description": "Référentiel Général de Sécurité (RGS) + qualification SecNumCloud de l'ANSSI pour les données sensibles. RGPD documenté minimum.",
+      "scale": [
+        { "value": 1, "label": "Aucune conformité documentée, RGPD seulement revendiqué", "requires": "Check registres" },
+        { "value": 2, "label": "RGPD documenté + ISO 27001 seul", "requires": "DPO + certificat ISO" },
+        { "value": 3, "label": "ISO 27001 + conformité RGS partielle", "requires": "Documents RGS" },
+        { "value": 4, "label": "SecNumCloud via hébergeur qualifié + conformité RGS **ou essentiel", "requires": "Contrat hébergeur SecNumCloud" },
+        { "value": 5, "label": "Qualification SecNumCloud directe (solution elle-même) + conformité RGS *** + audit ANSSI récent", "requires": "Qualification ANSSI directe" }
+      ],
+      "sourcing_hints": [
+        "Catalogue qualifications ANSSI (cyber.gouv.fr/produits-et-services-qualifies) — vérité absolue pour SecNumCloud.",
+        "Page sécurité / conformité du site vendeur — souvent /trust ou /security : ISO 27001, SOC 2, RGPD, hébergement.",
+        "Registre IAB / certificats ISO via organisme accréditeur (LNE, BSI, AFNOR) — vérification numéro de certificat.",
+        "Référentiel hébergeur SecNumCloud si pas de qualif directe (OVHcloud, Outscale, Bleu, S3ns…)."
+      ]
+    },
+    {
+      "id": "accessibilite_rgaa",
+      "name": "Accessibilité numérique RGAA",
+      "weight": 0.1,
+      "freshness_days": 180,
+      "description": "Référentiel Général d'Accessibilité des Administrations. Obligatoire pour toute interface destinée aux agents ou aux usagers du service public.",
+      "scale": [
+        { "value": 1, "label": "Aucune démarche RGAA, pas de déclaration de conformité", "requires": "Check pages légales" },
+        { "value": 2, "label": "Déclaration d'accessibilité présente mais conformité < 50 %", "requires": "Déclaration publique" },
+        { "value": 3, "label": "Conformité RGAA partielle 50-75 %, schéma pluriannuel publié", "requires": "Déclaration + schéma" },
+        { "value": 4, "label": "Conformité RGAA substantielle (75-99 %) + plan d'action à jour", "requires": "Audit RGAA < 18 mois" },
+        { "value": 5, "label": "Conformité RGAA totale (100 %) avec audit externe récent + engagements sur nouvelles fonctionnalités", "requires": "Audit externe daté + engagements" }
+      ],
+      "sourcing_hints": [
+        "Page d'accessibilité du site vendeur (URL type : /accessibilite, /accessibility) — déclaration RGAA si présente, taux de conformité, date d'audit, schéma pluriannuel.",
+        "Déclaration RGAA publiée par l'organisme client public (obligatoire art. 47 loi 2005-102) — souvent disponible si la solution est déjà déployée chez un client public, mentionne le périmètre couvert.",
+        "Référencement UGAP — fiche solution sur ugap.fr cite parfois le statut RGAA (cf. accord-cadre logiciels).",
+        "Audit accessibilité public (rapports DINUM, Numerique.gouv.fr, observatoire.numerique.gouv.fr) — base d'audits disponible pour solutions déployées dans l'État.",
+        "Si AUCUNE des 4 sources ci-dessus ne donne de réponse : verdict explicite UNKNOWN (pas N/D silencieux) — flagger trou_information avec mention 'sourcing RGAA épuisé'."
+      ]
+    },
+    {
+      "id": "souverainete_cloud_au_centre",
+      "name": "Doctrine 'Cloud au centre' et souveraineté",
+      "weight": 0.2,
+      "freshness_days": 180,
+      "description": "Conformité à la doctrine 'Cloud au centre' (circulaire du 5 juillet 2021) : cloud souverain pour les données sensibles, sinon cloud qualifié SecNumCloud. Voir aussi sovereignty-analyzer.",
+      "scale": [
+        { "value": 1, "label": "Cloud non-UE, modèles IA US, capital non-UE — incompatible", "requires": "Analyse 4 couches" },
+        { "value": 2, "label": "Capital FR/UE mais cloud Cloud Act (Azure FR, AWS EU, GCP FR) + modèles US", "requires": "Analyse 4 couches" },
+        { "value": 3, "label": "Cloud qualifié SecNumCloud via hébergeur + modèles IA mixtes US/UE", "requires": "Hébergeur SecNumCloud" },
+        { "value": 4, "label": "Cloud souverain FR (OVH, Scaleway, 3DS Outscale, S3ns, Bleu) + modèles UE/FR partiels", "requires": "Preuves d'hébergement" },
+        { "value": 5, "label": "Cloud qualifié SecNumCloud natif + modèles UE/FR (Mistral, propriétaires) + capital 100 % FR/UE", "requires": "Preuves sur les 4 couches + qualification directe" }
+      ]
+    },
+    {
+      "id": "referencement_ugap_ccag",
+      "name": "Référencement UGAP / accords-cadres / CCAG",
+      "weight": 0.1,
+      "freshness_days": 180,
+      "description": "Le référencement UGAP (ou équivalent : centrale d'achat régionale, accord-cadre national) réduit drastiquement le coût de mise en place pour un acheteur public.",
+      "scale": [
+        { "value": 1, "label": "Non référencé, marché à passer de bout en bout", "requires": "Check ugap.fr + centrales régionales" },
+        { "value": 2, "label": "Référencé dans 1 centrale régionale ou marché mutualisé limité", "requires": "Liste centrales" },
+        { "value": 3, "label": "Référencé UGAP OU accord-cadre national actif", "requires": "Vérifier ugap.fr ou boamp" },
+        { "value": 4, "label": "Référencé UGAP + 1 accord-cadre ministériel", "requires": "Double référencement" },
+        { "value": 5, "label": "Référencé UGAP + plusieurs accords-cadres nationaux + expérience CCAG-TIC documentée", "requires": "Multi-référencement + REX CCAG" }
+      ]
+    },
+    {
+      "id": "interop_franceconnect",
+      "name": "Interopérabilité FranceConnect / API particulier / API entreprise",
+      "weight": 0.1,
+      "freshness_days": 180,
+      "description": "Intégration avec l'écosystème d'API publiques : FranceConnect (identité), API particulier, API entreprise (DGFiP, URSSAF), Mon espace santé si applicable.",
+      "scale": [
+        { "value": 1, "label": "Aucune intégration avec l'écosystème public FR", "requires": "Doc intégrations" },
+        { "value": 2, "label": "1 intégration (SSO basique OU une API publique)", "requires": "Doc" },
+        { "value": 3, "label": "FranceConnect + 1 API (particulier ou entreprise)", "requires": "Doc + test" },
+        { "value": 4, "label": "FranceConnect + API particulier + API entreprise + SSO agent (AgentConnect)", "requires": "Doc + connecteurs listés" },
+        { "value": 5, "label": "Intégration complète écosystème api.gouv.fr, AgentConnect, FranceConnect+, plus briques sectorielles (Mon espace santé, etc.)", "requires": "Documentation publique + REX" }
+      ]
+    }
+  ],
+  "weight_total_check": 1.0,
+  "completeness_thresholds": {
+    "main_ranking": 0.80,
+    "secondary": 0.50,
+    "description": "Une solution avec completeness_ratio >= main_ranking entre dans le classement principal. Entre secondary et main_ranking, section à approfondir. En dessous de secondary, données insuffisantes."
+  },
+  "tie_breakers": [
+    { "priority": 1, "criterion": "souverainete_cloud_au_centre" },
+    { "priority": 2, "criterion": "conformite_rgs_secnumcloud" },
+    { "priority": 3, "criterion": "referencement_ugap_ccag" }
+  ],
+  "dealbreaker_hints": [
+    {
+      "id": "db_hosting_eu",
+      "criterion": "hosting_region",
+      "rule": "L'hébergement de production doit inclure au moins une région UE ou FR.",
+      "verdict_if_violated": "excluded",
+      "source_required": true,
+      "rationale": "Doctrine 'Cloud au centre' (circulaire 5 juillet 2021) : données publiques sensibles hors juridiction Cloud Act."
+    },
+    {
+      "id": "db_sovereign_model_option",
+      "criterion": "model_provenance",
+      "rule": "Si le modèle par défaut est US, une option souveraine FR/UE ou self-host on-prem documentée doit exister.",
+      "verdict_if_violated": "excluded",
+      "source_required": true,
+      "rationale": "Public sector FR ne peut pas dépendre d'un modèle soumis au Cloud Act sans alternative contractuelle."
+    },
+    {
+      "id": "db_public_sector_fr_ref",
+      "criterion": "references",
+      "rule": "Au moins 1 référence public sector FR vérifiable (collectivité, ministère, EPA, opérateur public).",
+      "verdict_if_violated": "excluded",
+      "source_required": true,
+      "rationale": "Acheteur public écarte de facto les vendors sans REX public — éviter les recommandations non actionnables."
+    },
+    {
+      "id": "db_rgaa_minimum",
+      "criterion": "accessibilite_rgaa",
+      "rule": "Note RGAA ≥ 3 (conformité partielle 50-75 % + schéma pluriannuel publié).",
+      "verdict_if_violated": "excluded",
+      "source_required": true,
+      "rationale": "Article 47 loi 2005-102 : RGAA est obligatoire pour tout service numérique public."
+    }
+  ],
+  "dealbreaker_hints_usage": "Ces règles sont des SUGGESTIONS pour scope-clarifier. Elles ne sont jamais ajoutées automatiquement au scope.yaml — l'utilisateur valide une à une lors de Q5.",
+  "usage_notes": [
+    "Grille calibrée pour les clients du secteur public français (État, collectivités, EPA, opérateurs publics).",
+    "Le critère 'Cloud au centre' pèse 20 % : une solution non-souveraine ne peut mécaniquement pas être recommandée pour des données sensibles publiques.",
+    "Le référencement UGAP ne change pas la qualité technique mais change radicalement la faisabilité d'achat — d'où son poids de 10 %.",
+    "RGAA est obligatoire par la loi (article 47 de la loi 2005-102) pour tout service numérique public. Une note < 3 est un dealbreaker probable."
+  ]
+}

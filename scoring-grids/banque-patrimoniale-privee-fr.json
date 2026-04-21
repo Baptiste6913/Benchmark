@@ -1,0 +1,120 @@
+{
+  "name": "banque-patrimoniale-privee-fr",
+  "version": "1.0",
+  "description": "Grille ad-hoc pour le market mapping des acteurs de la banque patrimoniale et banque privée en France (mission Ascend 2026-04-21). Objectif : positionner chaque acteur sur taille, profondeur d'offre, couverture géographique, clientèle cible, ancrage France. Ne sert pas à 'élire un gagnant' (pas de recommandation client) — sert à objectiver la cartographie.",
+  "sector": "banque-patrimoine-gestion-privee-fr",
+  "date_last_updated": "2026-04-21",
+  "client_context": "Ascend Partners — mission interne de market mapping. Livrable : cartographie acteurs + note de segmentation patrimoniale/privée. Pas de client final externe.",
+  "criteria": [
+    {
+      "id": "taille_encours_france",
+      "name": "Taille des encours sous gestion en France",
+      "label_fr": "Taille des encours sous gestion en France",
+      "weight": 0.25,
+      "description": "AUM France (privée ou patrimoniale) — proxy de la puissance commerciale et de la densité de la franchise française. Si AUM France non publié, on utilise l'AUM Europe prorata client français ou on note N/D (completeness pénalisé).",
+      "scale": [
+        { "value": 1, "label": "< 2 Md€ AUM France ou N/D sans estimation possible", "requires": "Rapport annuel / URD ou classement spécialisé" },
+        { "value": 2, "label": "2-10 Md€ AUM France", "requires": "Rapport annuel / URD ou classement" },
+        { "value": 3, "label": "10-30 Md€ AUM France", "requires": "Rapport annuel / URD ou classement" },
+        { "value": 4, "label": "30-80 Md€ AUM France", "requires": "Rapport annuel / URD" },
+        { "value": 5, "label": "> 80 Md€ AUM France (top 5 marché)", "requires": "Rapport annuel / URD" }
+      ]
+    },
+    {
+      "id": "segment_cible",
+      "name": "Segment client cible dominant",
+      "label_fr": "Segment client cible dominant",
+      "weight": 0.15,
+      "description": "Où se positionne l'acteur sur l'axe affluent → patrimonial → privé → UHNWI ? Score élevé = UHNWI/HNWI strict (banque privée 'pure player'). Score bas = affluent/grand public (banque patrimoniale de réseau). Le score ne dit pas 'meilleur', il objective le positionnement.",
+      "scale": [
+        { "value": 1, "label": "Affluent retail (seuil < 150 k€), offre de masse", "requires": "Site commercial / documentation" },
+        { "value": 2, "label": "Patrimonial grand public (seuil 150-500 k€)", "requires": "Site commercial" },
+        { "value": 3, "label": "Patrimonial premium / haute gestion privée (seuil 500 k€-1 M€)", "requires": "Plaquette commerciale" },
+        { "value": 4, "label": "Banque privée HNWI (seuil 1-5 M€)", "requires": "Plaquette banque privée" },
+        { "value": 5, "label": "UHNWI / family office (seuil > 5 M€ ou offre dédiée > 10 M€)", "requires": "Plaquette UHNWI / family office" }
+      ]
+    },
+    {
+      "id": "profondeur_gamme",
+      "name": "Profondeur et sophistication de l'offre",
+      "label_fr": "Profondeur et sophistication de l'offre",
+      "weight": 0.15,
+      "description": "Largeur de gamme : gestion sous mandat, gestion conseillée, produits structurés, private equity, dette privée, immobilier (SCPI/OPCI/clubs deals), art & objets de collection, philanthropie, ingénierie patrimoniale transfrontière, family office services.",
+      "scale": [
+        { "value": 1, "label": "Offre limitée (contrat d'assurance-vie + mandat standard)", "requires": "Brochure produits" },
+        { "value": 2, "label": "Offre standard + structurés + immobilier SCPI/OPCI", "requires": "Brochure produits" },
+        { "value": 3, "label": "Gamme étoffée incluant private equity + ingénierie fiscale", "requires": "Brochure produits" },
+        { "value": 4, "label": "Gamme complète incluant dette privée, co-investissements, art", "requires": "Plaquette family office ou UHNWI" },
+        { "value": 5, "label": "Offre intégrée multi-juridictions + family office complet + philanthropie structurée", "requires": "Offre family office documentée" }
+      ]
+    },
+    {
+      "id": "couverture_geographique",
+      "name": "Couverture géographique et capacité internationale",
+      "label_fr": "Couverture géographique et capacité internationale",
+      "weight": 0.1,
+      "description": "Capacité à accompagner un client français qui a des actifs / une résidence / des enfants à l'étranger. Présence de desks internationaux, maillage européen / global, expertise transfrontière.",
+      "scale": [
+        { "value": 1, "label": "France uniquement", "requires": "Site web" },
+        { "value": 2, "label": "France + Suisse ou Luxembourg", "requires": "Site web" },
+        { "value": 3, "label": "France + 2-3 juridictions européennes", "requires": "Site web" },
+        { "value": 4, "label": "Présence européenne large + accords USA/Asie", "requires": "Rapport annuel" },
+        { "value": 5, "label": "Réseau global propre (10+ juridictions) + desk NRI / expatriés", "requires": "Rapport annuel" }
+      ]
+    },
+    {
+      "id": "part_marche_france",
+      "name": "Part de marché estimée en France",
+      "label_fr": "Part de marché estimée en France (banque privée + patrimoniale)",
+      "weight": 0.15,
+      "description": "Part de marché France, base AUM consolidée privée + patrimoniale. Nota : le marché total FR de la gestion privée + patrimoniale est estimé entre 800 Md€ et 1 200 Md€ (fourchette ouverte, les sources divergent). On prend 1 000 Md€ comme base centrale.",
+      "scale": [
+        { "value": 1, "label": "< 1 % (< 10 Md€ sur 1 000 Md€ base)", "requires": "AUM confirmé" },
+        { "value": 2, "label": "1-3 %", "requires": "AUM confirmé" },
+        { "value": 3, "label": "3-6 %", "requires": "AUM confirmé" },
+        { "value": 4, "label": "6-10 %", "requires": "AUM confirmé" },
+        { "value": 5, "label": "> 10 % (top 3 marché)", "requires": "AUM confirmé + rapport tier" }
+      ]
+    },
+    {
+      "id": "anciennete_ancrage_fr",
+      "name": "Ancienneté et ancrage du nom en France",
+      "label_fr": "Ancienneté et ancrage du nom en France",
+      "weight": 0.1,
+      "description": "Ancienneté de la franchise en France, notoriété du nom auprès d'une clientèle française, proximité des centres de décision. Une marque installée depuis 1900 à Paris a un actif marque qui compte pour le bench.",
+      "scale": [
+        { "value": 1, "label": "Nouveau entrant (< 10 ans) sans marque établie en France", "requires": "Historique société" },
+        { "value": 2, "label": "Présence française 10-25 ans", "requires": "Historique" },
+        { "value": 3, "label": "Présence française 25-50 ans ou greenfield mais nom notoire", "requires": "Historique" },
+        { "value": 4, "label": "Franchise FR > 50 ans, marque reconnue", "requires": "Historique" },
+        { "value": 5, "label": "Franchise > 100 ans, marque patrimoniale ancestrale (ex: Rothschild, Neuflize)", "requires": "Historique société" }
+      ]
+    },
+    {
+      "id": "qualite_sourcing",
+      "name": "Qualité du sourcing disponible pour l'acteur",
+      "label_fr": "Qualité du sourcing public disponible",
+      "weight": 0.1,
+      "description": "Méta-critère : à quel point les informations publiques permettent-elles une fiche solide ? Un acteur coté (BNP, SG) publie tout ; un CGP indépendant publie peu. Ce critère reflète la confiance dans la fiche, pas la qualité de l'acteur.",
+      "scale": [
+        { "value": 1, "label": "Informations publiques très limitées, fiche spéculative", "requires": "Inventaire sourcing" },
+        { "value": 2, "label": "Quelques sources secondaires, peu de chiffres", "requires": "Inventaire sourcing" },
+        { "value": 3, "label": "Sources secondaires solides + quelques chiffres corporate", "requires": "Inventaire sourcing" },
+        { "value": 4, "label": "Rapport annuel + presse spécialisée récente", "requires": "Inventaire sourcing" },
+        { "value": 5, "label": "Coté ou filiale de groupe coté, URD complet + presse spécialisée + régulateur", "requires": "Inventaire sourcing" }
+      ]
+    }
+  ],
+  "weight_total_check": 1.0,
+  "tie_breakers": [
+    { "priority": 1, "criterion": "taille_encours_france" },
+    { "priority": 2, "criterion": "part_marche_france" },
+    { "priority": 3, "criterion": "segment_cible" }
+  ],
+  "usage_notes": [
+    "Cette grille est descriptive, pas évaluative au sens 'qui est le meilleur'. Elle positionne les acteurs sur la carte.",
+    "Le critère 'segment_cible' n'a pas de sens univoque : 5 = UHNWI strict, 1 = affluent mass-market. Ce n'est pas un gradient de qualité.",
+    "Le critère 'qualite_sourcing' peut sembler tautologique — il sert à calibrer la confiance dans les autres scores. Un acteur noté 3/5 sur taille avec un sourcing 2/5 a une note plus fragile qu'un acteur noté 3/5 avec un sourcing 5/5.",
+    "Les acteurs purement offshore sans antenne France sortent du scope (cf. scope.yaml dealbreaker presence_france)."
+  ]
+}

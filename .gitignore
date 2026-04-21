@@ -1,0 +1,39 @@
+# Build artefacts
+/tmp/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+node_modules/
+.venv/
+venv/
+
+# Environnement et secrets
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+credentials.json
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Stack-specific
+outputs/
+scratchpad/
+*.xlsx.tmp
+*.docx.tmp
+.claude/local/
+
+# Consultant-specific config (never committed — created by installer)
+config/consultant.json

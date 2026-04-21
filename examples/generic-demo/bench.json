@@ -1,0 +1,267 @@
+{
+  "meta": {
+    "client": "Demo Corp (exemple synthétique public)",
+    "mission": "Benchmark démo — cartographie d'éditeurs IA souveraine (synthetic)",
+    "date": "2026-04-21",
+    "version": "1.0",
+    "mode": "full",
+    "methodology": "Ascend-Bench v1.3.1 — workflow market-benchmark complet, exemple public synthétique",
+    "consultant": "Demo User"
+  },
+  "grid_ref": "scoring-grids/lisi-souverainete.json",
+
+  "exec_summary": {
+    "context": "Bench synthétique de 4 éditeurs fictifs pour démontrer le rendu du stack Ascend-Bench (xlsx + docx). Aucune donnée client réelle. Les noms d'éditeurs, chiffres, citations sont tous fictifs et servent uniquement à illustrer la structure du livrable.",
+    "three_takeaways": [
+      "Trois voies d'émancipation technologique se distinguent dans ce panel synthétique — pure souverain, hybride, remédiation — illustrant les arbitrages typiques rencontrés en mission.",
+      "Le leader fictif Acme Cloud combine cloud qualifié + modèles UE + capital européen, score pondéré 4.40 sur 5, mais présente des angles morts sur la dépendance silicium NVIDIA (inévitable à court terme).",
+      "Cartographie synthétique des 3 voies observées : by design (Acme Cloud), voie hybride avec Nova Industries et Demo Hybrid Systems en mode hybride assumé, et remédiation (Sample Legacy Corp)."
+    ],
+    "weak_signals": [
+      "Les acteurs de taille intermédiaire accélèrent leur adoption de cloud souverain qualifié depuis les annonces réglementaires récentes.",
+      "Le gap GPU entre cloud souverains et hyperscalers US ne se réduit pas — les parcs sont en retard d'au moins 1 génération."
+    ],
+    "ranking": [
+      { "rank": 1, "actor_id": "acme-cloud",      "weighted_score": 4.40, "positioning": "Pure player souverain fictif — cloud EU qualifié + modèles Mistral" },
+      { "rank": 2, "actor_id": "nova-industries", "weighted_score": 3.35, "positioning": "Industriel fictif qui construit son stack IA in-house avec cloud EU" },
+      { "rank": 3, "actor_id": "demo-hybrid",     "weighted_score": 2.95, "positioning": "Éditeur fictif hybride — AWS/Azure pour dev, cloud souverain pour prod régulée" },
+      { "rank": 4, "actor_id": "sample-legacy",   "weighted_score": 1.80, "positioning": "Acteur fictif sur stack US historique, en début de remédiation souveraineté" }
+    ]
+  },
+
+  "actors": [
+    {
+      "id": "acme-cloud",
+      "name": "Acme Cloud SAS",
+      "positioning_one_liner": "Pure player souverain fictif — référence by design sur périmètre régulé",
+      "tldr": {
+        "score": 4.40,
+        "verdict": "TIENT LA ROUTE",
+        "positioning": "Pure player souverain fictif",
+        "stack_emblematique": "Cloud EU qualifié + Mistral LLM + capital 100 % UE + data center Paris"
+      },
+      "context": "Acme Cloud SAS est un éditeur fictif à capital européen, spécialisé dans les services cloud pour administrations et industries régulées françaises. Filiale d'un groupe industriel imaginaire, fondée en 2018 (data fictive), elle opère 3 data centers en France et au Luxembourg. Ce contenu est entièrement synthétique et sert uniquement d'exemple de rendu Ascend-Bench.",
+      "flagship_quote": {
+        "text": "Notre pari est simple : un acteur souverain qui construit son stack complet en Europe est le seul garant d'une indépendance technologique durable pour nos clients régulés.",
+        "author": "Jane Example, PDG Acme Cloud (fictive)",
+        "date": "2026-03-15",
+        "source_id": "acme-1"
+      },
+      "strategy": {
+        "infra": "3 data centers (Paris, Lyon, Luxembourg), tous qualifiés par l'autorité cyber EU imaginaire. Parc GPU 2 générations derrière les hyperscalers US, compensé par une optimisation modèle (quantization 8-bit par défaut). Pas de dépendance hyperscaler US identifiée.",
+        "models": "Partenariat exclusif avec Mistral AI pour LLMaaS sur cloud souverain. Self-hosting d'embeddings open-weight pour la partie RAG.",
+        "data_gov": "Contrats clients avec clause d'exclusivité hébergement FR/EU + immunité extraterritoriale revendiquée.",
+        "org": "400 collaborateurs, dont 60 ETP IA dédiés. CEO Jane Example, CTO John Sample (noms fictifs)."
+      },
+      "key_figures": [
+        { "metric": "CA 2025 estimé",         "value": "85 M€ (fictif)", "date": "2025", "source_ids": ["acme-1"] },
+        { "metric": "Clients régulés actifs", "value": "~120",           "date": "2026-Q1", "source_ids": ["acme-2"] },
+        { "metric": "CAPEX cloud 2023-2026",  "value": "350 M€ cumulés (fictif)", "date": "2023-2026", "source_ids": ["acme-1"] }
+      ],
+      "maturity_and_approach": "Production opérationnelle sur périmètre régulé. Approche by design pure — pas de legacy hyperscaler à migrer.",
+      "scoring": [
+        { "criterion_id": "maturite_demarche",                 "score": 5, "weight": 0.20, "justification": "Plateforme en production groupe-wide. Déploiement multi-client référencé.", "source_ids": ["acme-1"] },
+        { "criterion_id": "independance_stack",                "score": 5, "weight": 0.25, "justification": "Cloud EU qualifié + modèles UE + capital EU + data souverain. 3 couches indépendantes.", "source_ids": ["acme-2"] },
+        { "criterion_id": "ampleur_investissement",            "score": 4, "weight": 0.15, "justification": "350 M€ CAPEX cumulés, 60 ETP dédiés IA.", "source_ids": ["acme-1"] },
+        { "criterion_id": "pertinence_lisi",                   "score": 3, "weight": 0.15, "justification": "Secteur proche (cloud pour industriels) mais pas directement donneur d'ordre.", "source_ids": ["acme-2"] },
+        { "criterion_id": "approche_by_design_vs_remediation", "score": 5, "weight": 0.10, "justification": "100 % by design, pas de legacy à migrer.", "source_ids": ["acme-1"] },
+        { "criterion_id": "traction_resultats",                "score": 4, "weight": 0.15, "justification": "120 clients régulés actifs, rentabilité atteinte 2025.", "source_ids": ["acme-2"] }
+      ],
+      "weighted_score": 4.40,
+      "rank": 1,
+      "blind_spots": [
+        { "num": 1, "text": "Dépendance NVIDIA pour le parc GPU — inévitable à court terme, tous les acteurs EU l'ont.", "severity": "high" },
+        { "num": 2, "text": "Parc GPU 2 générations derrière les hyperscalers US — limite la profondeur des modèles servis.", "severity": "medium" }
+      ],
+      "red_team_verdict": "TIENT LA ROUTE",
+      "information_gaps": [
+        "Détails du parc GPU exact (nombre de cartes, génération)",
+        "Structure capitalistique fine (actionnaires minoritaires)"
+      ]
+    },
+    {
+      "id": "nova-industries",
+      "name": "Nova Industries (fictif)",
+      "positioning_one_liner": "Industriel fictif qui construit son stack IA in-house",
+      "tldr": {
+        "score": 3.35,
+        "verdict": "À NUANCER",
+        "positioning": "Industriel avec stack IA in-house, voie hybride",
+        "stack_emblematique": "Plateforme IA interne + cloud EU + modèles mixtes UE/US"
+      },
+      "context": "Nova Industries est un industriel fictif de taille moyenne, qui a décidé en 2023 de construire sa propre plateforme IA en interne plutôt que de dépendre d'éditeurs. Cloud EU pour la prod, modèles mix UE (Mistral) + OpenAI pour le prototype. Contenu synthétique.",
+      "strategy": {
+        "infra": "Cloud EU qualifié pour prod, AWS pour dev (data non-sensible).",
+        "models": "Mistral en prod, OpenAI en dev. Self-hosting d'embeddings open-weight.",
+        "data_gov": "Classification des données en 3 tiers : public / interne / régulé. Seul le régulé passe par cloud souverain.",
+        "org": "15 ETP IA internes, pas de filiale dédiée."
+      },
+      "key_figures": [
+        { "metric": "CA groupe 2024",        "value": "450 M€ (fictif)", "date": "2024", "source_ids": ["nova-1"] },
+        { "metric": "CAPEX IA cumulé",        "value": "12 M€ (2023-26)", "date": "2023-2026", "source_ids": ["nova-1"] }
+      ],
+      "maturity_and_approach": "POC en cours de passage en production. Approche hybride assumée selon criticité des données.",
+      "scoring": [
+        { "criterion_id": "maturite_demarche",                 "score": 3, "weight": 0.20, "justification": "POC avancés, premiers cas d'usage en production.", "source_ids": ["nova-1"] },
+        { "criterion_id": "independance_stack",                "score": 4, "weight": 0.25, "justification": "Cloud EU + modèles mixtes — 2 couches sur 3 souveraines.", "source_ids": ["nova-1"] },
+        { "criterion_id": "ampleur_investissement",            "score": 2, "weight": 0.15, "justification": "12 M€ cumulés — initiative BU pas programme groupe.", "source_ids": ["nova-1"] },
+        { "criterion_id": "pertinence_lisi",                   "score": 4, "weight": 0.15, "justification": "Industriel de taille comparable, contraintes similaires.", "source_ids": ["nova-1"] },
+        { "criterion_id": "approche_by_design_vs_remediation", "score": 4, "weight": 0.10, "justification": "Dominante by design sur périmètre critique, remédiation sur le reste.", "source_ids": ["nova-1"] },
+        { "criterion_id": "traction_resultats",                "score": 3, "weight": 0.15, "justification": "Premiers cas en prod, peu de REX externes publiés.", "source_ids": ["nova-1"] }
+      ],
+      "weighted_score": 3.35,
+      "rank": 2,
+      "blind_spots": [
+        { "num": 1, "text": "Effectif IA limité à 15 ETP — fragilité sur turnover.", "severity": "medium" },
+        { "num": 2, "text": "AWS dev non-sensible reste une dépendance extraterritoriale.", "severity": "medium" }
+      ],
+      "red_team_verdict": "À NUANCER",
+      "information_gaps": [
+        "Métriques d'adoption interne",
+        "Roadmap 2027+"
+      ]
+    },
+    {
+      "id": "demo-hybrid",
+      "name": "Demo Hybrid Systems (fictif)",
+      "positioning_one_liner": "Éditeur fictif hybride — AWS/Azure pour dev, souverain pour prod",
+      "tldr": {
+        "score": 2.95,
+        "verdict": "À NUANCER",
+        "positioning": "Hybride assumé, voie intermédiaire",
+        "stack_emblematique": "AWS dev + cloud EU prod régulée + OpenAI prototype + Mistral prod"
+      },
+      "context": "Demo Hybrid Systems est un éditeur fictif qui assume une stratégie hybride : US pour ce qui est rapide et scalable, souverain pour ce qui est régulé. Modèle pragmatique courant sur le marché réel, représenté ici de manière synthétique.",
+      "strategy": {
+        "infra": "AWS pour dev et cas non-sensibles. Cloud EU qualifié pour clients régulés. Migration progressive vers souverain sur les renouvellements contrats.",
+        "models": "OpenAI pour POC rapide, Mistral pour prod.",
+        "data_gov": "Segmentation stricte data en fonction du cloud (dev data sur AWS, prod data sur cloud EU).",
+        "org": "200 collaborateurs, dont 25 ETP IA."
+      },
+      "key_figures": [
+        { "metric": "CA 2024",         "value": "35 M€ (fictif)", "date": "2024", "source_ids": ["hybrid-1"] },
+        { "metric": "Clients EU/US",    "value": "60% EU / 40% US", "date": "2026-Q1", "source_ids": ["hybrid-1"] }
+      ],
+      "maturity_and_approach": "Production sur périmètre régulé + non-régulé. Approche remédiation assumée, verdict transparent devant clients.",
+      "scoring": [
+        { "criterion_id": "maturite_demarche",                 "score": 4, "weight": 0.20, "justification": "Déploiement multi-client opérationnel.", "source_ids": ["hybrid-1"] },
+        { "criterion_id": "independance_stack",                "score": 2, "weight": 0.25, "justification": "2 stacks en parallèle — pas 100 % souverain.", "source_ids": ["hybrid-1"] },
+        { "criterion_id": "ampleur_investissement",            "score": 2, "weight": 0.15, "justification": "Taille modeste.", "source_ids": ["hybrid-1"] },
+        { "criterion_id": "pertinence_lisi",                   "score": 3, "weight": 0.15, "justification": "Secteur différent mais modèle hybride transférable.", "source_ids": ["hybrid-1"] },
+        { "criterion_id": "approche_by_design_vs_remediation", "score": 3, "weight": 0.10, "justification": "Mix équilibré.", "source_ids": ["hybrid-1"] },
+        { "criterion_id": "traction_resultats",                "score": 4, "weight": 0.15, "justification": "Clients EU et US actifs, adoption mesurée.", "source_ids": ["hybrid-1"] }
+      ],
+      "weighted_score": 2.95,
+      "rank": 3,
+      "blind_spots": [
+        { "num": 1, "text": "Dépendance AWS fragilise le discours souverain auprès des clients régulés.", "severity": "medium" }
+      ],
+      "red_team_verdict": "À NUANCER",
+      "information_gaps": [
+        "Détails de la migration progressive vers souverain"
+      ]
+    },
+    {
+      "id": "sample-legacy",
+      "name": "Sample Legacy Corp (fictif)",
+      "positioning_one_liner": "Acteur fictif sur stack US historique, en début de remédiation",
+      "tldr": {
+        "score": 1.80,
+        "verdict": "REFAIRE",
+        "positioning": "Remédiation débutante",
+        "stack_emblematique": "Azure historique + Microsoft Copilot + début de cloisonnement données"
+      },
+      "context": "Sample Legacy Corp est un acteur fictif qui a une stack Microsoft historique (Azure, Office 365, Copilot) et commence à s'interroger sur la souveraineté depuis 2024. Contenu synthétique pour illustrer le profil remédiation débutante.",
+      "strategy": {
+        "infra": "100 % Azure pour prod et dev. Début d'évaluation d'un cloud souverain pour les données sensibles.",
+        "models": "Microsoft Copilot + OpenAI via Azure. Pas d'usage Mistral.",
+        "data_gov": "Début de classification data. DPO récemment renforcé.",
+        "org": "3 ETP IA dédiés, 100 collaborateurs IT."
+      },
+      "key_figures": [
+        { "metric": "Dépendance Microsoft",     "value": "~90 %",           "date": "2026-Q1", "source_ids": ["legacy-1"] },
+        { "metric": "Budget remédiation 2026",   "value": "1,5 M€ (fictif)", "date": "2026", "source_ids": ["legacy-1"] }
+      ],
+      "maturity_and_approach": "Phase d'étude. Pas de production souveraine à ce jour. Approche remédiation pure dans un stack US historique.",
+      "scoring": [
+        { "criterion_id": "maturite_demarche",                 "score": 2, "weight": 0.20, "justification": "Roadmap annoncée, pas de livrable opérationnel.", "source_ids": ["legacy-1"] },
+        { "criterion_id": "independance_stack",                "score": 1, "weight": 0.25, "justification": "Full hyperscalers US + modèles US.", "source_ids": ["legacy-1"] },
+        { "criterion_id": "ampleur_investissement",            "score": 2, "weight": 0.15, "justification": "Budget modeste, pas de filiale dédiée.", "source_ids": ["legacy-1"] },
+        { "criterion_id": "pertinence_lisi",                   "score": 3, "weight": 0.15, "justification": "Secteur différent mais illustre la voie remédiation.", "source_ids": ["legacy-1"] },
+        { "criterion_id": "approche_by_design_vs_remediation", "score": 1, "weight": 0.10, "justification": "100 % remédiation.", "source_ids": ["legacy-1"] },
+        { "criterion_id": "traction_resultats",                "score": 2, "weight": 0.15, "justification": "Peu de concret publié.", "source_ids": ["legacy-1"] }
+      ],
+      "weighted_score": 1.80,
+      "rank": 4,
+      "blind_spots": [
+        { "num": 1, "text": "Dépendance Microsoft 90 % — exposition Cloud Act majeure.", "severity": "high" },
+        { "num": 2, "text": "Budget remédiation insuffisant vs ambition.", "severity": "medium" }
+      ],
+      "red_team_verdict": "REFAIRE",
+      "information_gaps": [
+        "Détails de la roadmap remédiation",
+        "Engagement capex long terme"
+      ]
+    }
+  ],
+
+  "sources": [
+    { "id": "acme-1",   "actor_ref": "acme-cloud",      "title": "Corporate Acme Cloud (fictif)",            "date": "2026", "url": "https://example.com/acme-cloud",        "type": "primary",     "reliability": 4 },
+    { "id": "acme-2",   "actor_ref": "acme-cloud",      "title": "Press release Acme Cloud 2026 (fictif)",   "date": "2026", "url": "https://example.com/acme-press",        "type": "primary",     "reliability": 4 },
+    { "id": "nova-1",   "actor_ref": "nova-industries", "title": "Nova Industries corporate (fictif)",       "date": "2026", "url": "https://example.com/nova",              "type": "primary",     "reliability": 4 },
+    { "id": "hybrid-1", "actor_ref": "demo-hybrid",     "title": "Demo Hybrid Systems corporate (fictif)",   "date": "2026", "url": "https://example.com/demo-hybrid",       "type": "primary",     "reliability": 4 },
+    { "id": "legacy-1", "actor_ref": "sample-legacy",   "title": "Sample Legacy Corp annual report (fictif)","date": "2026", "url": "https://example.com/sample-legacy",     "type": "primary",     "reliability": 4 }
+  ],
+
+  "critic": {
+    "blocking": [
+      { "num": 1, "text": "DEMO SYNTHÉTIQUE — ne pas utiliser ce bench comme référence méthodologique pour une mission réelle. Les chiffres et les acteurs sont fictifs.", "actor_ref": "global" }
+    ],
+    "warnings": [
+      { "num": 1, "text": "Ce bench est entièrement synthétique — tous les chiffres et citations sont fictifs. À n'utiliser QUE comme exemple de rendu du stack, pas comme référence méthodologique pour une mission réelle.", "actor_ref": "global" },
+      { "num": 2, "text": "Les sources pointent toutes vers example.com (placeholders) — non exploitables en contexte réel." }
+    ],
+    "observations": [
+      { "num": 1, "text": "Le panel synthétique illustre les 3 voies canoniques (by design, hybride, remédiation) pour démontrer la lisibilité du livrable sur une typologie contrastée." },
+      { "num": 2, "text": "Les poids de grille lisi-souverainete produisent un spread de score de 1.80 à 4.40 — discrimination suffisante pour la démo." }
+    ]
+  },
+
+  "red_team": {
+    "patterns": [
+      "Dépendance NVIDIA universelle sur le silicium GPU — pas de différenciation possible à court terme.",
+      "Maturité hétérogène sur la remédiation — seuls 50 % des acteurs ont un programme structuré."
+    ],
+    "verdicts": {
+      "acme-cloud": "TIENT LA ROUTE",
+      "nova-industries": "À NUANCER",
+      "demo-hybrid": "À NUANCER"
+    },
+    "messages_to_comex": [
+      "Le panel synthétique démontre que la voie by design est rare en pratique — à utiliser comme cadrage pédagogique."
+    ]
+  },
+
+  "transverse": {
+    "patterns_communs": [
+      "Tous les acteurs du panel synthétique ont une stratégie IA à long terme identifiable.",
+      "La dépendance NVIDIA sur le GPU est universelle — pas de différenciation possible à court terme sur ce point."
+    ],
+    "two_paths_table": {
+      "dimensions":  ["Cloud",           "Modèles IA",          "Capital",      "Gouvernance data"],
+      "remediation": ["AWS/Azure + DLP", "OpenAI + filtrage",   "US majoritaire", "Classification tardive"],
+      "by_design":   ["Cloud EU qualifié","Mistral + self-host", "EU 100 %",      "Classification native"],
+      "hybrid":      ["AWS dev + EU prod","OpenAI dev + Mistral prod","Mixte",   "Classification rigoureuse"]
+    },
+    "ai_impact": "L'IA souveraine reste un positionnement de niche — seul 1 acteur sur 4 du panel synthétique est pure by design. Cohérent avec les benchs réels sur marchés régulés : la remédiation progressive est statistiquement dominante."
+  },
+
+  "recommendations": [
+    {
+      "id": "R1",
+      "title": "Modèle d'ingénierie à étudier",
+      "body": "Pour un industriel cherchant à construire un stack IA interne, Nova Industries (fictif) illustre un path crédible — hybride assumé, investissement mesuré, résultats progressifs.",
+      "caveats": "Panel synthétique — à retrianguler avec des références réelles avant toute décision."
+    }
+  ]
+}

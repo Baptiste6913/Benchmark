@@ -1,0 +1,326 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ascend-partners.com/schemas/bench.schema.json",
+  "title": "Ascend-Bench — Canonical Benchmark Document",
+  "description": "Source de vérité d'un bench Ascend-Bench. Les livrables xlsx + docx sont générés à partir de ce JSON (à partir de v1.2.0, via lib/render.py). Les champs optionnels restent acceptables pour un draft ; le mode Full exige tous les champs requis remplis.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["meta", "grid_ref", "actors", "sources"],
+
+  "properties": {
+    "meta":            { "$ref": "#/$defs/meta" },
+    "grid_ref":        { "type": "string", "pattern": "^scoring-grids/.+\\.json$" },
+    "exec_summary":    { "$ref": "#/$defs/exec_summary" },
+    "actors":          { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/actor" } },
+    "sources":         { "type": "array", "items": { "$ref": "#/$defs/source" } },
+    "critic":          { "$ref": "#/$defs/critic" },
+    "red_team":        { "$ref": "#/$defs/red_team" },
+    "transverse":      { "$ref": "#/$defs/transverse" },
+    "recommendations": { "type": "array", "items": { "$ref": "#/$defs/recommendation" } }
+  },
+
+  "$defs": {
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["client", "mission", "date", "version", "mode", "consultant"],
+      "properties": {
+        "client":      { "type": "string", "minLength": 1 },
+        "mission":     { "type": "string", "minLength": 1 },
+        "date":        { "type": "string", "format": "date" },
+        "version":     { "type": "string", "description": "Version du bench lui-même (ex: '1.0', '2.0' après révision)" },
+        "mode":        { "enum": ["quick", "standard", "full"], "description": "Mode d'exécution — conditionne l'autorisation de livraison client" },
+        "methodology": { "type": "string", "description": "Référence au stack utilisé (ex: 'Ascend-Bench v1.1.0')" },
+        "consultant":  { "type": "string", "description": "Nom du consultant responsable" },
+        "tools_health": {
+          "type": "object",
+          "description": "Snapshot de l'état des outils de recherche au lancement (v1.3 fix 4).",
+          "additionalProperties": false,
+          "properties": {
+            "firecrawl":  { "enum": ["up", "down", "unknown"] },
+            "webfetch":   { "enum": ["up", "down", "unknown"] },
+            "websearch":  { "enum": ["up", "down", "unknown"] },
+            "verdict":    { "enum": ["full", "degraded", "blocked"], "description": "full = tous up ; degraded = Firecrawl down mais WebFetch/WebSearch up ; blocked = tout down (ne pas lancer le run)" },
+            "checked_at": { "type": "string", "description": "ISO 8601 du ping" }
+          }
+        },
+        "degraded_mode_disclaimer": {
+          "type": "string",
+          "description": "Si non vide, le bench a été produit en mode dégradé et ce texte doit apparaître en encart rouge dans les livrables (v1.3 fix 4). Déclenché quand (shallow + partial/2) / total > degraded_threshold (défaut 0.5, paramétrable dans scope.yaml)."
+        },
+        "degraded_threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Seuil pondéré (shallow + partial/2) / total au-delà duquel le bench bascule en mode dégradé (v1.3 fix 4, paramétrable). Défaut 0.5."
+        }
+      }
+    },
+
+    "exec_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "context":         { "type": "string", "description": "Contexte / cadrage en 1-3 phrases" },
+        "three_takeaways": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "type": "string" } },
+        "weak_signals":    { "type": "array", "items": { "type": "string" } },
+        "exclus_dealbreaker": {
+          "type": "array",
+          "description": "IDs des acteurs écartés en Phase 0 (v1.3 fix 1) avant scoring, pour violation d'une règle dealbreaker. Ces acteurs n'ont pas de weighted_score ni de rank.",
+          "items": { "type": "string" }
+        },
+        "ranking":         {
+          "type": "array",
+          "description": "Tableau de classement synthétique rang → acteur → score pondéré → positionnement",
+          "items": {
+            "type": "object",
+            "required": ["rank", "actor_id", "weighted_score", "positioning"],
+            "properties": {
+              "rank":          { "type": "integer", "minimum": 1 },
+              "actor_id":      { "type": "string" },
+              "weighted_score":{ "type": "number", "minimum": 0, "maximum": 5 },
+              "positioning":   { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "weighted_score", "rank", "scoring"],
+      "properties": {
+        "id":                     { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "name":                   { "type": "string", "minLength": 1 },
+        "positioning_one_liner":  { "type": "string", "description": "Phrase de positionnement 1 ligne pour le tableau classement" },
+        "tldr": {
+          "type": "object",
+          "properties": {
+            "score":             { "type": "number" },
+            "verdict":           { "$ref": "#/$defs/verdict" },
+            "positioning":       { "type": "string" },
+            "stack_emblematique":{ "type": "string", "description": "Stack technique synthétisé en 1 phrase (ex: 'Outscale SecNumCloud + Mistral sur 3DEXPERIENCE')" }
+          }
+        },
+        "context":        { "type": "string", "description": "Paragraphe contexte & déclencheur avec citations datées" },
+        "flagship_quote": { "$ref": "#/$defs/flagship_quote" },
+        "strategy":       { "$ref": "#/$defs/strategy" },
+        "key_figures":    { "type": "array", "items": { "$ref": "#/$defs/key_figure" } },
+        "maturity_and_approach": { "type": "string", "description": "Paragraphe maturité déploiement + approche by design vs remédiation" },
+        "scoring":        { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/criterion_score" } },
+        "weighted_score": { "type": "number", "minimum": 0, "maximum": 5 },
+        "rank":           { "type": "integer", "minimum": 1 },
+        "blind_spots":    { "type": "array", "items": { "$ref": "#/$defs/blind_spot" } },
+        "red_team_verdict":{ "$ref": "#/$defs/verdict" },
+        "information_gaps":{ "type": "array", "items": { "type": "string" }, "description": "Ce que l'investigator n'a pas trouvé malgré recherche" },
+        "added_in_version":{ "type": "string", "description": "Version du bench où l'acteur a été ajouté (ex: 'v2' pour un ajout tardif)" },
+        "dealbreaker_verdict": {
+          "enum": ["pass", "violated", "unknown"],
+          "description": "Verdict Phase 0 dealbreaker_check (v1.3 fix 1). 'violated' exclut l'acteur du ranking principal."
+        },
+        "dealbreaker_violations": {
+          "type": "array",
+          "description": "Liste des règles violées (v1.3 fix 1). Obligatoire si dealbreaker_verdict == 'violated'.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["rule_id", "evidence"],
+            "properties": {
+              "rule_id":   { "type": "string", "description": "ID de la règle dans scope.yaml.dealbreakers" },
+              "evidence":  { "type": "string", "description": "Preuve factuelle de la violation, avec source si possible" },
+              "source_id": { "type": "string", "description": "ID de la source dans bench.sources[] (optionnel si preuve factsheet interne)" }
+            }
+          }
+        },
+        "investigation_depth": {
+          "enum": ["full", "partial", "shallow"],
+          "description": "Profondeur d'investigation de la fiche (v1.3 fix 4). full = Firecrawl P1+P2 complet ; partial = P1 OK mais P2 dégradé (WebFetch fallback) ; shallow = pas d'accès primaire, uniquement WebSearch. Dérivé du comptage sources_used."
+        },
+        "sources_used": {
+          "type": "object",
+          "description": "Décompte des sources effectivement utilisées pour construire la fiche (v1.3 fix 4). Sert à calculer investigation_depth et degraded_mode.",
+          "additionalProperties": false,
+          "properties": {
+            "firecrawl_pages":   { "type": "integer", "minimum": 0 },
+            "webfetch_pages":    { "type": "integer", "minimum": 0 },
+            "websearch_queries": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "notes":          { "type": "string", "description": "Notes libres (révisions de scoring, points de méthodo spécifiques)" }
+      }
+    },
+
+    "flagship_quote": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "author", "date"],
+      "properties": {
+        "text":      { "type": "string", "minLength": 1 },
+        "author":    { "type": "string", "minLength": 1 },
+        "date":      { "type": "string" },
+        "source_id": { "type": "string", "description": "ID de la source dans la liste sources[]" }
+      }
+    },
+
+    "strategy": {
+      "type": "object",
+      "description": "Stratégie déployée par acteur. Chaque champ est un texte en markdown court avec sources inline [1], [2]…",
+      "properties": {
+        "infra":     { "type": "string", "description": "Infra / cloud" },
+        "models":    { "type": "string", "description": "Modèles IA" },
+        "data_gov":  { "type": "string", "description": "Données & gouvernance" },
+        "org":       { "type": "string", "description": "Gouvernance / org — effectifs, dirigeants" }
+      }
+    },
+
+    "key_figure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["metric", "value"],
+      "properties": {
+        "metric":     { "type": "string", "minLength": 1 },
+        "value":      { "type": ["string", "number"] },
+        "date":       { "type": "string", "description": "Date du chiffre (YYYY ou YYYY-MM ou YYYY-MM-DD)" },
+        "source_ids": { "type": "array", "items": { "type": "string" } },
+        "notes":      { "type": "string" }
+      }
+    },
+
+    "criterion_score": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["criterion_id", "score", "justification"],
+      "properties": {
+        "criterion_id":  { "type": "string", "description": "ID du critère dans scoring-grids/*.json" },
+        "score":         { "type": "number", "minimum": 1, "maximum": 5 },
+        "weight":        { "type": "number", "minimum": 0, "maximum": 1, "description": "Duplique le poids de la grille pour faciliter les calculs — doit matcher grid_ref" },
+        "justification": { "type": "string", "minLength": 1 },
+        "source_ids":    { "type": "array", "items": { "type": "string" } },
+        "revision_note": { "type": "string", "description": "Si le score a été révisé (ex: par red-team), mentionner ici. Ex: '5 initial révisé à 4 après red-team v2.'" }
+      }
+    },
+
+    "blind_spot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["num", "text"],
+      "properties": {
+        "num":      { "type": "integer", "minimum": 1 },
+        "text":     { "type": "string", "minLength": 1 },
+        "severity": { "enum": ["low", "medium", "high", "critical"] }
+      }
+    },
+
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "actor_ref", "title", "date", "url", "type", "reliability"],
+      "properties": {
+        "id":          { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "actor_ref":   { "type": "string", "description": "ID de l'acteur auquel la source est rattachée, ou 'global' si transverse" },
+        "title":       { "type": "string", "minLength": 1 },
+        "author":      { "type": "string", "description": "Auteur ou média (ex: 'Les Echos', 'Thales press release', 'Guillaume Lesage interview')" },
+        "date":        { "type": "string", "description": "Date de publication (YYYY, YYYY-MM ou YYYY-MM-DD)" },
+        "url":         { "type": "string", "format": "uri" },
+        "type":        { "enum": ["primary", "secondary", "specialised", "regulatory", "other"] },
+        "reliability": { "type": "integer", "minimum": 1, "maximum": 5, "description": "Niveau de fiabilité 1-5 selon skill source-credibility" },
+        "access_date": { "type": "string", "description": "Date d'accès par l'investigator (pour fraîcheur)" },
+        "notes":       { "type": "string" }
+      }
+    },
+
+    "critic": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "blocking":     { "type": "array", "items": { "$ref": "#/$defs/critic_item" } },
+        "warnings":     { "type": "array", "items": { "$ref": "#/$defs/critic_item" } },
+        "observations": { "type": "array", "items": { "$ref": "#/$defs/critic_item" } }
+      }
+    },
+
+    "critic_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["num", "text"],
+      "properties": {
+        "num":       { "type": "integer", "minimum": 1 },
+        "text":      { "type": "string", "minLength": 1 },
+        "actor_ref": { "type": "string", "description": "Acteur concerné si applicable" },
+        "resolved":  { "type": "boolean", "description": "True si l'item a été traité dans une version ultérieure du bench" },
+        "resolution_note": { "type": "string" }
+      }
+    },
+
+    "red_team": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "patterns":        { "type": "array", "items": { "type": "string" }, "description": "Patterns de fragilité communs identifiés sur le top 3" },
+        "verdicts":        {
+          "type": "object",
+          "description": "Map actor_id -> verdict tranché",
+          "additionalProperties": { "$ref": "#/$defs/verdict" }
+        },
+        "messages_to_comex": { "type": "array", "items": { "type": "string" }, "description": "Messages à nuancer devant le COMEX" },
+        "details_per_actor": {
+          "type": "object",
+          "description": "Map actor_id -> { persona_1, persona_2, persona_3, verdict_justification, alternative }",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "persona_1_arguments":    { "type": "array", "items": { "type": "string" } },
+              "persona_2_arguments":    { "type": "array", "items": { "type": "string" } },
+              "persona_3_arguments":    { "type": "array", "items": { "type": "string" } },
+              "verdict":                { "$ref": "#/$defs/verdict" },
+              "verdict_justification":  { "type": "string" },
+              "alternative":            { "type": "string" },
+              "impact_client":          { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        }
+      }
+    },
+
+    "transverse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "patterns_communs": {
+          "type": "array",
+          "description": "Patterns observés à travers les acteurs (ce qu'ils font tous quand ils veulent s'émanciper)",
+          "items": { "type": "string" }
+        },
+        "two_paths_table": {
+          "type": "object",
+          "description": "Table comparative remédiation legacy vs by design, si applicable à la mission",
+          "properties": {
+            "dimensions":       { "type": "array", "items": { "type": "string" } },
+            "remediation":      { "type": "array", "items": { "type": "string" } },
+            "by_design":        { "type": "array", "items": { "type": "string" } },
+            "hybrid":           { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "ai_impact": { "type": "string", "description": "Paragraphe libre sur l'impact IA / souveraineté / résilience dans le contexte de la mission" }
+      }
+    },
+
+    "recommendation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "body"],
+      "properties": {
+        "id":       { "type": "string", "pattern": "^R[0-9]+$", "description": "Ex: 'R1', 'R2'..." },
+        "title":    { "type": "string", "minLength": 1 },
+        "body":     { "type": "string", "minLength": 1 },
+        "caveats":  { "type": "string", "description": "Attention / hypothèses à cadrer, règle héritée du run LISI v2 : toute reco chiffrée = sourcée OU 'hypothèse à cadrer'" }
+      }
+    },
+
+    "verdict": {
+      "enum": ["OK", "TIENT LA ROUTE", "À NUANCER", "REFAIRE", "N/A"],
+      "description": "Verdict red-team standardisé"
+    }
+  }
+}

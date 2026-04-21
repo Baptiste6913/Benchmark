@@ -1,0 +1,98 @@
+{
+  "name": "health-ai",
+  "version": "1.0",
+  "description": "Grille de scoring pour solutions IA en secteur santé et mutualiste. Accent fort sur conformité HDS/RGPD/AI Act et souveraineté numérique (cloud + modèles). Pondérations modifiables selon contexte client, mais la somme doit rester à 1.0.",
+  "sector": "sante-mutualiste",
+  "date_last_updated": "2026-04-16",
+  "criteria": [
+    {
+      "id": "maturite",
+      "name": "Maturité de la solution",
+      "weight": 0.15,
+      "description": "Ancienneté, nombre de clients, retours d'expérience, stabilité produit. Un éditeur jeune peut être prometteur mais pas mature.",
+      "scale": [
+        { "value": 1, "label": "< 10 clients, < 3 ans d'existence, pré-production", "requires": "Année de création + effectif + nombre clients (source niveau 3+)" },
+        { "value": 2, "label": "10-30 clients, 3-5 ans, quelques retours", "requires": "Idem + au moins 1 référence citable" },
+        { "value": 3, "label": "30-80 clients, 5-8 ans, REX publics", "requires": "Idem + 2+ REX ou case studies" },
+        { "value": 4, "label": "80-150 clients, 8+ ans, positionnement établi", "requires": "Idem + mentionné par analyste reconnu" },
+        { "value": 5, "label": "> 150 clients, > 10 ans, leader reconnu marché FR ou mondial", "requires": "Idem + leader Gartner/Forrester ou part de marché > 15%" }
+      ]
+    },
+    {
+      "id": "references_sante",
+      "name": "Références client secteur santé",
+      "weight": 0.15,
+      "description": "Nombre et qualité des références spécifiquement dans le secteur santé, mutualiste, protection sociale. Une solution excellente sans référence santé est risquée pour une mutuelle.",
+      "scale": [
+        { "value": 1, "label": "Aucune référence santé", "requires": "Liste clients publique" },
+        { "value": 2, "label": "1-2 clients santé, pas de taille significative", "requires": "Noms clients santé" },
+        { "value": 3, "label": "3-5 clients santé dont un moyen-gros", "requires": "Noms + taille clients (CA, effectif)" },
+        { "value": 4, "label": "5-10 clients santé dont mutuelles / groupes de protection sociale", "requires": "Références citables" },
+        { "value": 5, "label": "> 10 clients santé, références mutualistes majeures (MGEN, Harmonie, MACSF, AG2R, etc.)", "requires": "Références publiques + presse" }
+      ]
+    },
+    {
+      "id": "conformite",
+      "name": "Conformité HDS / RGPD / CE / AI Act",
+      "weight": 0.2,
+      "description": "Certifications et conformités réglementaires applicables au secteur. HDS obligatoire pour traitement données santé. CE MDR si dispositif médical. AI Act pour systèmes IA à haut risque.",
+      "scale": [
+        { "value": 1, "label": "Aucune certification vérifiée, revendications marketing uniquement", "requires": "Check registres certifiants" },
+        { "value": 2, "label": "ISO 27001 seul (pas HDS)", "requires": "Certificat ISO vérifié" },
+        { "value": 3, "label": "ISO 27001 + RGPD documenté + HDS en cours", "requires": "Preuves HDS en cours (contrat avec hébergeur certifié)" },
+        { "value": 4, "label": "HDS certifié via hébergeur OU directement + RGPD documenté + DPO nommé", "requires": "Inscription esante.gouv.fr" },
+        { "value": 5, "label": "HDS directe + CE MDR si médical + conformité AI Act documentée + audits publics récents", "requires": "Ensemble certifications vérifiées + audit externe < 18 mois" }
+      ]
+    },
+    {
+      "id": "interoperabilite",
+      "name": "Interopérabilité DPI / HL7 / FHIR / SESAM-Vitale",
+      "weight": 0.15,
+      "description": "Capacité à s'intégrer dans l'écosystème SI santé français. FHIR = standard mondial. DMP/ENS = écosystème ANS. SESAM-Vitale = tiers payant.",
+      "scale": [
+        { "value": 1, "label": "Aucun standard santé supporté, API générique uniquement", "requires": "Doc API éditeur" },
+        { "value": 2, "label": "Support HL7 v2 de base, pas de FHIR", "requires": "Doc API + cas d'usage" },
+        { "value": 3, "label": "FHIR supporté partiellement + 1-2 intégrations DPI", "requires": "Liste connecteurs DPI" },
+        { "value": 4, "label": "FHIR natif complet + connecteurs DPI majeurs (Maincare, Softway Medical, Dedalus) + DMP", "requires": "Liste connecteurs + versions" },
+        { "value": 5, "label": "FHIR natif + connecteurs DPI + DMP + SESAM-Vitale + Mon espace santé", "requires": "Idem + référencement Ségur" }
+      ]
+    },
+    {
+      "id": "economie",
+      "name": "Modèle économique et soutenabilité",
+      "weight": 0.15,
+      "description": "Pricing, transparence, soutenabilité financière de l'éditeur. Un éditeur trop cher ou en difficulté financière est un risque.",
+      "scale": [
+        { "value": 1, "label": "Pricing opaque + éditeur fragile (levée ratée, rumeurs)", "requires": "Infos levées + santé financière" },
+        { "value": 2, "label": "Pricing demande commerciale uniquement, éditeur stable", "requires": "Infos éditeur stable" },
+        { "value": 3, "label": "Pricing communiqué après demande, grille tarifaire claire", "requires": "Grille obtenue" },
+        { "value": 4, "label": "Pricing public par tier + TCO 3 ans documenté", "requires": "Page pricing + calculateur TCO" },
+        { "value": 5, "label": "Pricing public transparent + modèles flexibles (per-seat, per-volume, hybride) + garanties contractuelles SLA/RGPD", "requires": "Idem + SLA publiques" }
+      ]
+    },
+    {
+      "id": "souverainete",
+      "name": "Souveraineté numérique (4 couches)",
+      "weight": 0.2,
+      "description": "Analyse sur capital / hébergement / modèles IA / dépendances. Voir skill sovereignty-analyzer. Critère majoritairement pondéré vu le secteur.",
+      "scale": [
+        { "value": 1, "label": "Editeur non-UE + cloud US (Cloud Act) + modèles US + dépendances US", "requires": "Analyse 4 couches" },
+        { "value": 2, "label": "Editeur FR/UE de façade (cap. majoritairement US) + cloud Cloud Act + modèles US", "requires": "Analyse 4 couches" },
+        { "value": 3, "label": "Editeur FR/UE + cloud Cloud Act (ex: Azure France) + modèles mixtes US/UE", "requires": "Analyse 4 couches" },
+        { "value": 4, "label": "Editeur FR/UE + cloud souverain (OVH/Scaleway/S3ns) + modèles mixtes", "requires": "Analyse 4 couches + preuves cloud" },
+        { "value": 5, "label": "Editeur FR/UE + cloud souverain + modèles UE/FR (Mistral, Pleias, propriétaire) + dépendances UE", "requires": "Analyse 4 couches, tout vert" }
+      ]
+    }
+  ],
+  "weight_total_check": 1.0,
+  "tie_breakers": [
+    { "priority": 1, "criterion": "souverainete" },
+    { "priority": 2, "criterion": "conformite" },
+    { "priority": 3, "criterion": "maturite" }
+  ],
+  "usage_notes": [
+    "Pondérations modifiables en fonction du contexte client. Par défaut, souveraineté + conformité = 40% (secteur santé régulé).",
+    "Pour un client privé non régulé, baisser souveraineté à 10% et remonter maturité à 20%.",
+    "Pour un client public, monter souveraineté à 30% et conformité à 25%."
+  ]
+}

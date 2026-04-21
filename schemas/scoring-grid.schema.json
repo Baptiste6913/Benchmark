@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ascend-partners.com/schemas/scoring-grid.schema.json",
+  "title": "Ascend-Bench — Scoring Grid",
+  "description": "Grille de scoring pondérée utilisée par un bench. Chaque critère a un poids (somme = 1.0), une échelle 1-5 complète avec label et requires (sources attendues), et des tie-breakers optionnels ordonnés.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "version", "criteria"],
+
+  "properties": {
+    "name":              { "type": "string", "minLength": 1, "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "version":           { "type": "string", "minLength": 1 },
+    "description":       { "type": "string" },
+    "sector":            { "type": "string" },
+    "date_last_updated": { "type": "string", "description": "YYYY-MM-DD ou YYYY-MM" },
+    "client_context":    { "type": "string", "description": "Contexte client qui a motivé cette grille (si spécifique)" },
+    "criteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/criterion" }
+    },
+    "weight_total_check": {
+      "type": "number",
+      "description": "Doit refléter la somme effective des poids (≈ 1.0). La validation croisée vérifie la somme réelle."
+    },
+    "tie_breakers": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/tie_breaker" }
+    },
+    "usage_notes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+
+    "completeness_thresholds": {
+      "type": "object",
+      "description": "Extension forward-compat (patch 4 non encore intégré) — seuils de completeness_ratio pour éviter les phantom rankings."
+    },
+    "dealbreaker_hints": {
+      "type": "array",
+      "description": "Extension forward-compat (fix(1) non encore intégré) — liste de critères rédhibitoires à détecter en phase 0 avant scoring.",
+      "items": { "type": "object" }
+    },
+    "dealbreaker_hints_usage": {
+      "type": "string",
+      "description": "Extension forward-compat (fix(1) non encore intégré) — mode d'emploi des dealbreaker_hints."
+    }
+  },
+
+  "$defs": {
+    "criterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "weight", "scale"],
+      "properties": {
+        "id":          { "type": "string", "minLength": 1, "pattern": "^[a-z][a-z0-9_]*$" },
+        "name":        { "type": "string", "minLength": 1, "description": "Libellé ASCII historique (compat) — utilisé en fallback si label_fr absent." },
+        "label_fr":    { "type": "string", "minLength": 1, "description": "Libellé français avec accents corrects — affiché dans les livrables (priorité sur name). Recommandé à partir de v1.2.1. Le validator émet un warning si absent." },
+        "weight":      { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
+        "description": { "type": "string" },
+        "scale": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items":   { "$ref": "#/$defs/scale_entry" }
+        },
+        "freshness_days": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "description": "Extension forward-compat (patch 5 non encore intégré) — durée de validité maximale en jours d'une donnée sur ce critère. Déclenchera un verdict STALE quand patch 5 sera intégré."
+        },
+        "sourcing_hints": {
+          "type": "array",
+          "description": "Extension forward-compat (fix(2) non encore intégré) — indices de sourcing recommandés pour ce critère.",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "scale_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "label"],
+      "properties": {
+        "value":    { "type": "integer", "minimum": 1, "maximum": 5 },
+        "label":    { "type": "string", "minLength": 1 },
+        "requires": { "type": "string", "description": "Sources ou preuves attendues pour scorer ce niveau" }
+      }
+    },
+    "tie_breaker": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["priority", "criterion"],
+      "properties": {
+        "priority":  { "type": "integer", "minimum": 1 },
+        "criterion": { "type": "string", "description": "ID d'un critère existant dans criteria[]" }
+      }
+    }
+  }
+}

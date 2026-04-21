@@ -1,0 +1,13 @@
+{
+  "_comment": "Copier ce fichier en config/consultant.json et remplir. L'installeur le fait automatiquement si absent. Ce fichier est l'exemple versionné ; consultant.json est ignoré par git.",
+
+  "consultant_name": "Nom Prénom",
+  "consultant_email": "prenom.nom@ascend-partners.com",
+  "consultant_handle": "@prenom",
+
+  "_fields": {
+    "consultant_name": "Nom affiché dans les livrables, les prompts et les skills. Peut être 'Baptiste', 'Sonia', 'Antoine', etc.",
+    "consultant_email": "Email professionnel. Utilisé dans le footer Word et la git config locale.",
+    "consultant_handle": "Handle court (optionnel). Utilisé pour les mentions internes."
+  }
+}

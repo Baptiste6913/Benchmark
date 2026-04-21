@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Test suite + validation
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install openpyxl python-docx pyyaml jsonschema pytest
+
+      - name: Run pytest
+        run: |
+          python -m pytest tests/ -v --tb=short
+        # Expect: 139 passed
+
+      - name: Validate LISI bench non-regression
+        run: |
+          python scripts/validate_bench.py examples/generic-demo/bench.json
+
+      - name: Validate all scoring grids
+        run: |
+          python scripts/validate_grid.py --all
+
+      - name: Smoke test render pipeline (LISI)
+        run: |
+          mkdir -p /tmp/ci-render
+          python -m lib.render examples/generic-demo/bench.json --out /tmp/ci-render/
+          ls -la /tmp/ci-render/
+          # Files must exist and be non-empty
+          test -s /tmp/ci-render/generic-demo.xlsx
+          test -s /tmp/ci-render/generic-demo.docx

@@ -1,0 +1,98 @@
+{
+  "name": "regulated-industries",
+  "version": "1.0",
+  "description": "Grille pour secteurs fortement régulés (défense, énergie critique, opérateurs d importance vitale, secteur public critique, finance systémique). Souveraineté (30%) et conformité (25%) dominent. Maturité et références secteur exigeantes.",
+  "sector": "defense-public-critique",
+  "date_last_updated": "2026-04-16",
+  "criteria": [
+    {
+      "id": "maturite",
+      "name": "Maturité de la solution",
+      "weight": 0.1,
+      "description": "Ancienneté et track record. En secteur régulé, on accepte mal la nouveauté non éprouvée.",
+      "scale": [
+        { "value": 1, "label": "< 50 clients, < 5 ans", "requires": "Année + nb clients" },
+        { "value": 2, "label": "50-100 clients, 5-8 ans", "requires": "Idem" },
+        { "value": 3, "label": "100-300 clients, 8-10 ans", "requires": "REX publics" },
+        { "value": 4, "label": "> 300 clients, 10+ ans, pas d incident majeur public", "requires": "Historique public" },
+        { "value": 5, "label": "Leader historique reconnu, > 500 clients, track record multi-décennies", "requires": "Position leader" }
+      ]
+    },
+    {
+      "id": "references_secteur",
+      "name": "Références secteur régulé",
+      "weight": 0.15,
+      "description": "Références spécifiquement dans secteurs régulés (défense, énergie, public). Pas de crédit pour références privées hors périmètre.",
+      "scale": [
+        { "value": 1, "label": "Aucune référence en secteur régulé", "requires": "Page clients" },
+        { "value": 2, "label": "1-2 références secteur régulé, petite taille", "requires": "Noms" },
+        { "value": 3, "label": "3-5 références, dont acteurs moyens", "requires": "Noms + taille" },
+        { "value": 4, "label": "> 5 références dont 1-2 OIV ou institution majeure", "requires": "Liste" },
+        { "value": 5, "label": "Références État, Défense, OIV multiples, ministères, grandes collectivités", "requires": "Confirmé publiquement" }
+      ]
+    },
+    {
+      "id": "conformite",
+      "name": "Conformité (SecNumCloud, ISO 27001, ANSSI, DORA, NIS2)",
+      "weight": 0.25,
+      "description": "Certifications renforcées exigées en secteur régulé. SecNumCloud / ANSSI pour certaines données sensibles. DORA pour finance. NIS2 pour OIV.",
+      "scale": [
+        { "value": 1, "label": "Aucune certification renforcée", "requires": "Check registres" },
+        { "value": 2, "label": "ISO 27001 seul", "requires": "Certificat" },
+        { "value": 3, "label": "ISO 27001 + conformité RGPD documentée + qualification ANSSI partielle", "requires": "Documents" },
+        { "value": 4, "label": "ISO 27001 + SecNumCloud via hébergeur + conformité sectorielle (DORA / NIS2)", "requires": "Attestations" },
+        { "value": 5, "label": "SecNumCloud directe + qualification ANSSI + conformité DORA/NIS2 + audit externe récent", "requires": "Certifications directes" }
+      ]
+    },
+    {
+      "id": "souverainete",
+      "name": "Souveraineté numérique (4 couches, exigence stricte)",
+      "weight": 0.3,
+      "description": "Critère majoritaire en secteur régulé critique. Exige tout le stack sous droit français / UE — cloud, modèles, dépendances. Voir sovereignty-analyzer.",
+      "scale": [
+        { "value": 1, "label": "Tout US (capital, cloud, modèles) — inacceptable", "requires": "Analyse 4 couches" },
+        { "value": 2, "label": "FR/UE façade + cloud Cloud Act + modèles US", "requires": "Analyse 4 couches" },
+        { "value": 3, "label": "FR/UE + cloud Cloud Act (Azure FR, etc.) + modèles mixtes", "requires": "Analyse 4 couches" },
+        { "value": 4, "label": "FR/UE + cloud souverain (OVH, Scaleway, 3DS Outscale) + modèles mixtes UE", "requires": "Analyse 4 couches" },
+        { "value": 5, "label": "FR/UE + cloud souverain qualifié SecNumCloud + modèles UE/FR + dépendances UE uniquement", "requires": "Preuves sur les 4 couches" }
+      ]
+    },
+    {
+      "id": "economie",
+      "name": "Modèle économique",
+      "weight": 0.1,
+      "description": "Transparence et soutenabilité. Critère moins pondéré car en secteur régulé, la conformité prime sur le prix.",
+      "scale": [
+        { "value": 1, "label": "Pricing opaque + éditeur fragile", "requires": "Info éditeur" },
+        { "value": 2, "label": "Pricing variable, éditeur stable", "requires": "Info éditeur" },
+        { "value": 3, "label": "Grille claire post-demande", "requires": "Grille obtenue" },
+        { "value": 4, "label": "Pricing public + SLA claires + garanties", "requires": "SLA publiques" },
+        { "value": 5, "label": "Pricing public + SLA renforcées + garanties financières + exit plan documenté", "requires": "Contrat type" }
+      ]
+    },
+    {
+      "id": "support_francais",
+      "name": "Support et intégration en France",
+      "weight": 0.1,
+      "description": "Présence opérationnelle en France : support francophone, intégrateurs FR, formation en France.",
+      "scale": [
+        { "value": 1, "label": "Aucune présence FR, support anglais seul", "requires": "Doc support" },
+        { "value": 2, "label": "Support anglais + partenaire FR minoritaire", "requires": "Idem" },
+        { "value": 3, "label": "Support francophone limité + 1-2 intégrateurs FR", "requires": "Réseau partenaires" },
+        { "value": 4, "label": "Équipe FR > 20 ETP + réseau intégrateurs établi", "requires": "Liste partenaires" },
+        { "value": 5, "label": "Équipe FR > 50 ETP + écosystème intégrateurs FR riche + formation certifiante en FR", "requires": "Programme + cursus" }
+      ]
+    }
+  ],
+  "weight_total_check": 1.0,
+  "tie_breakers": [
+    { "priority": 1, "criterion": "souverainete" },
+    { "priority": 2, "criterion": "conformite" },
+    { "priority": 3, "criterion": "references_secteur" }
+  ],
+  "usage_notes": [
+    "Pour clients défense / OIV / opérateurs services essentiels NIS2 / banques systémiques.",
+    "La souveraineté à 30% reflète l'exigence stratégique non négociable en secteur régulé critique.",
+    "Une solution notée 3/5 ou moins sur souveraineté ne peut pas être en top 3, quelle que soit sa performance sur les autres critères. Règle du maillon faible."
+  ]
+}
